@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="src\framework.h" />
+    <ClInclude Include="src\DxUtil.h" />
+    <ClInclude Include="src\d3dx12.h" />
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\GameTimer.h" />
+    <ClInclude Include="src\MathHelper.h" />
+    <ClInclude Include="src\UploadBuffer.h" />
+    <ClInclude Include="src\MeshGeometry.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DxUtil.cpp" />
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\GameTimer.cpp" />
+    <ClCompile Include="src\MathHelper.cpp" />
+    <ClCompile Include="src\MeshGeometry.cpp" />
+  </ItemGroup>
+</Project>

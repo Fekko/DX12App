@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\MyApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Main.h" />
+    <ClInclude Include="src\framework.h" />
+    <ClInclude Include="src\Resource.h" />
+    <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\MyApp.h" />
+    <ClInclude Include="color.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\DX12App.ico" />
+    <Image Include="src\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\DX12App.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="color.vs.hlsl" />
+    <FxCompile Include="color.ps.hlsl" />
+  </ItemGroup>
+</Project>
