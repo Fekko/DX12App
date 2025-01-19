@@ -9,9 +9,8 @@ using namespace Microsoft::WRL;
 using namespace DxUtil;
 
 
-FileNotFoundException::FileNotFoundException(const std::wstring& filename, const std::wstring& message) :
-    Filename{filename},
-    Message{message}
+FileNotFoundException::FileNotFoundException(const std::wstring& filename) :
+    Filename{filename}
 {};
 
 DxException::DxException(HRESULT hr, const std::wstring& functionName, const std::wstring& filename, int lineNumber) :
@@ -138,9 +137,7 @@ ComPtr<ID3DBlob> DxUtil::LoadBinary(const std::wstring& filename) {
     fin.open(filename, std::ios::binary);
 
     if (fin.fail()) {
-        auto pError = strerror(errno);
-        std::wstring message(pError, pError + strlen(pError));
-        throw FileNotFoundException(filename, message);
+        throw FileNotFoundException(filename);
     }
 
     fin.seekg(0, std::ios_base::end);

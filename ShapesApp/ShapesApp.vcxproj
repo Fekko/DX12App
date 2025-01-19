@@ -21,24 +21,13 @@
   <ItemGroup>
     <ClInclude Include="src\RenderItem.h" />
     <ClInclude Include="src\FrameResource.h" />
-    <ClInclude Include="src\framework.h" />
-    <ClInclude Include="src\Resource.h" />
     <ClInclude Include="src\ShapesApp.h" />
-    <ClInclude Include="src\targetver.h" />
-    <ClInclude Include="src\test\Header.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RenderItem.cpp" />
     <ClCompile Include="src\FrameResource.cpp" />
     <ClCompile Include="src\ShapesApp.cpp" />
     <ClCompile Include="src\Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="src\ShapesApp.ico" />
-    <Image Include="src\small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\ShapesApp.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DX12Lib\DX12Lib.vcxproj">
@@ -63,9 +52,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -196,13 +182,5 @@
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets" Condition="Exists('..\packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets'))" />
-  </Target>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

@@ -31,9 +31,8 @@ namespace DxUtil
     class FileNotFoundException : std::exception
     {
     public:
-        FileNotFoundException(const std::wstring& filename, const std::wstring& message);
+        FileNotFoundException(const std::wstring& filename);
         const std::wstring Filename{};
-        const std::wstring Message{};
     };
 
     class DxException

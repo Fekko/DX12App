@@ -24,16 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BoxApp.h" />
-    <ClInclude Include="src\framework.h" />
-    <ClInclude Include="src\Resource.h" />
-    <ClInclude Include="src\targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="src\BoxApp.ico" />
-    <Image Include="src\small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\BoxApp.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DX12Lib\DX12Lib.vcxproj">

@@ -5,18 +5,8 @@
     <ClCompile Include="src\BoxApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\framework.h" />
-    <ClInclude Include="src\Resource.h" />
-    <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\BoxApp.h" />
     <ClInclude Include="color.hlsli" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="src\BoxApp.ico" />
-    <Image Include="src\small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="src\BoxApp.rc" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="color.vs.hlsl" />
