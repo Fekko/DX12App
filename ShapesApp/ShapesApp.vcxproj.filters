@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="src\framework.h" />
+    <ClInclude Include="src\Resource.h" />
+    <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\ShapesApp.h" />
+    <ClInclude Include="color.hlsli" />
+    <ClInclude Include="src\FrameResource.h" />
+    <ClInclude Include="src\RenderItem.h" />
+    <ClInclude Include="src\test\Header.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ShapesApp.cpp" />
+    <ClCompile Include="src\FrameResource.cpp" />
+    <ClCompile Include="src\RenderItem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\ShapesApp.ico" />
+    <Image Include="src\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\ShapesApp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="color.ps.hlsl" />
+    <FxCompile Include="color.vs.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

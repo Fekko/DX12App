@@ -1,15 +1,9 @@
-#include "Main.h"
-
-#include <filesystem>
-#include "MyApp.h"
+#include "resource.h"
+#include "ShapesApp.h"
 
 using namespace DxUtil;
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*prevInstance*/, PSTR /*cmdLine*/, int /*showCmd*/) 
-{
-	std::filesystem::path cwd = std::filesystem::current_path();
-
-
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*prevInstance*/, PSTR /*cmdLine*/, int /*showCmd*/) {
 
 	// Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
@@ -17,7 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*prevInstance*/, PSTR /*cmdLi
 #endif
 
 	try {
-		BoxApp app(hInstance);
+		ShapesApp app(hInstance);
 		if (not app.Initialize()) return 0;
 		return app.Run();
 	}

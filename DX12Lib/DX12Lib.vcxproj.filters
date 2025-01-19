@@ -9,6 +9,7 @@
     <ClInclude Include="src\MathHelper.h" />
     <ClInclude Include="src\UploadBuffer.h" />
     <ClInclude Include="src\MeshGeometry.h" />
+    <ClInclude Include="src\GeometryGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DxUtil.cpp" />
@@ -16,5 +17,6 @@
     <ClCompile Include="src\GameTimer.cpp" />
     <ClCompile Include="src\MathHelper.cpp" />
     <ClCompile Include="src\MeshGeometry.cpp" />
+    <ClCompile Include="src\GeometryGenerator.cpp" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#include "MyApp.h"
+#include "BoxApp.h"
 
 #include <array>
 #include <DirectXColors.h>
@@ -8,9 +8,13 @@ using namespace DirectX;
 
 BoxApp::BoxApp(HINSTANCE hInstance)
 	: App(hInstance) 
-{}
+{
+	_title = L"BoxApp";
+}
 
-BoxApp::~BoxApp() {}
+BoxApp::~BoxApp() {
+	if (_pDevice) FlushCommandQueue();
+}
 
 bool BoxApp::Initialize() {
 	if (not App::Initialize()) return false;
@@ -196,7 +200,7 @@ void BoxApp::BuildConstantBuffers()
 {
 	_pUploadBuffer = std::make_unique<UploadBuffer<ObjectConstants>>(_pDevice.Get(), 1, true);
 
-	UINT byteSize = (sizeof(ObjectConstants) + 255) & ~255;
+	UINT byteSize = MathHelper::ByteSize(sizeof(ObjectConstants));
 
 	D3D12_GPU_VIRTUAL_ADDRESS address = _pUploadBuffer->Resource()->GetGPUVirtualAddress();
 	int index = 0;
@@ -352,7 +356,6 @@ void BoxApp::BuildBoxGeometry()
 
 void BoxApp::BuildPipelineStateObject()
 {
-	/*
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc
 	{
 		.pInputElementDescs = _inputLayout.data(),
@@ -377,11 +380,10 @@ void BoxApp::BuildPipelineStateObject()
 		.Quality = 0,
 	};
 
-
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc
 	{
 		.pRootSignature = _pRootSignature.Get(),
-		.VS = vs, // THIS IS THE ISSUE!!!
+		.VS = vs,
 		.PS = ps,
 		.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT),
 		.SampleMask = UINT_MAX,
@@ -398,35 +400,6 @@ void BoxApp::BuildPipelineStateObject()
 
 	THROW_IF_FAILED(_pDevice->CreateGraphicsPipelineState(
 		&psoDesc, 
-		IID_PPV_ARGS(&_pPipelineState)
+		IID_PPV_ARGS(&_pPipelineStateObject)
 	));
-	*/
-
-	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc;
-	ZeroMemory(&psoDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC));
-	psoDesc.InputLayout = { _inputLayout.data(), (UINT)_inputLayout.size() };
-	psoDesc.pRootSignature = _pRootSignature.Get();
-	psoDesc.VS =
-	{
-		reinterpret_cast<BYTE*>(_vertexShader->GetBufferPointer()),
-		_vertexShader->GetBufferSize()
-	};
-	psoDesc.PS =
-	{
-		reinterpret_cast<BYTE*>(_pixelShader->GetBufferPointer()),
-		_pixelShader->GetBufferSize()
-	};
-	psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
-	psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-	psoDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
-	psoDesc.SampleMask = UINT_MAX;
-	psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-	psoDesc.NumRenderTargets = 1;
-	psoDesc.RTVFormats[0] = _backBufferFormat;
-	psoDesc.SampleDesc.Count = 1;
-	psoDesc.SampleDesc.Quality = 0;
-	psoDesc.DSVFormat = _depthStencilFormat;
-	
-	THROW_IF_FAILED(_pDevice->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&_pPipelineStateObject)));
-
 }

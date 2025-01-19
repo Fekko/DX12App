@@ -8,6 +8,18 @@
 using namespace Microsoft::WRL;
 using namespace DxUtil;
 
+
+FileNotFoundException::FileNotFoundException(const std::wstring& filename, const std::wstring& message) :
+    Filename{filename},
+    Message{message}
+{};
+
+DxException::DxException(HRESULT hr, const std::wstring& functionName, const std::wstring& filename, int lineNumber) :
+    ErrorCode{ hr },
+    FunctionName{ functionName },
+    Filename{ filename },
+    LineNumber{ lineNumber } {}
+
 void DxUtil::LogAdapterOutputs(
     IDXGIAdapter* adapter) 
 {
@@ -121,7 +133,15 @@ ComPtr<ID3D12Resource> DxUtil::CreateDefaultBuffer(
  
 
 ComPtr<ID3DBlob> DxUtil::LoadBinary(const std::wstring& filename) {
-    std::ifstream fin( filename, std::ios::binary );
+    std::ifstream fin{};
+
+    fin.open(filename, std::ios::binary);
+
+    if (fin.fail()) {
+        auto pError = strerror(errno);
+        std::wstring message(pError, pError + strlen(pError));
+        throw FileNotFoundException(filename, message);
+    }
 
     fin.seekg(0, std::ios_base::end);
     std::ifstream::pos_type size = (int) fin.tellg();
@@ -134,13 +154,6 @@ ComPtr<ID3DBlob> DxUtil::LoadBinary(const std::wstring& filename) {
     fin.close();
     return pBlob;
 }
-
-DxException::DxException(HRESULT hr, const std::wstring& functionName, const std::wstring& filename, int lineNumber) :
-    ErrorCode{ hr },
-    FunctionName{ functionName }, 
-    Filename{ filename },
-    LineNumber{ lineNumber }   
-{}
 
 std::wstring DxException::ToString() const {
     // Get the string description of the error code.

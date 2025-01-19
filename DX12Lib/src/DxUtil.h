@@ -28,6 +28,14 @@ namespace DxUtil
         Microsoft::WRL::ComPtr<ID3D12Resource>& uploadBuffer
     );
 
+    class FileNotFoundException : std::exception
+    {
+    public:
+        FileNotFoundException(const std::wstring& filename, const std::wstring& message);
+        const std::wstring Filename{};
+        const std::wstring Message{};
+    };
+
     class DxException
     {
     public:

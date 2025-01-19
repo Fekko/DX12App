@@ -625,7 +625,6 @@ D3D12_CPU_DESCRIPTOR_HANDLE App::DepthStencilView() const
 	return _pDsvHeap->GetCPUDescriptorHandleForHeapStart();
 }
 
-// TODO: CLEANUP
 void App::CalculateFrameStats()
 {
 	static int frameCnt = 0;
