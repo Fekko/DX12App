@@ -288,7 +288,7 @@ void ShapesApp::BuildDescriptorHeaps() {
 }
 
 void ShapesApp::BuildConstantBufferViews() {
-	UINT ObjectConstantsByteSize = MathHelper::ByteSize(sizeof(ObjectConstants));
+	UINT ObjectConstantsByteSize = DxUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 	UINT objCount = (UINT)_opaqueRenderItems.size();
 
 	// Need a CBV descriptor for each object for each frame resource.
@@ -314,7 +314,7 @@ void ShapesApp::BuildConstantBufferViews() {
 		}
 	}
 
-	UINT passConstantsByteSize = MathHelper::ByteSize(sizeof(PassConstants));
+	UINT passConstantsByteSize = DxUtil::CalcConstantBufferByteSize(sizeof(PassConstants));
 
 	// Last three descriptors are the pass CBVs for each frame resource.
 	for (int frameIndex = 0; frameIndex < RenderItem::NrFrameResources; ++frameIndex) {
@@ -659,7 +659,7 @@ void ShapesApp::BuildRenderItems() {
 }
 
 void ShapesApp::DrawRenderItems(ID3D12GraphicsCommandList* pCommandList, const std::vector<RenderItem*>& items) {
-	UINT objCBByteSize = MathHelper::ByteSize(sizeof(ObjectConstants));
+	UINT objCBByteSize = DxUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 
 	// For each render item...
 	for (size_t i = 0; i < items.size(); ++i) {

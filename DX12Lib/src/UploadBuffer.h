@@ -19,7 +19,7 @@ public:
 		// This is because the hardware can only view constant data 
 		// at m*256 byte offsets and of n*256 byte lengths. 
 		_elementByteSize = (_isConstantBuffer)
-			? MathHelper::ByteSize(sizeof(T))
+			? DxUtil::CalcConstantBufferByteSize(sizeof(T))
 			: sizeof(T);
 
 		CD3DX12_HEAP_PROPERTIES prop(D3D12_HEAP_TYPE_UPLOAD);

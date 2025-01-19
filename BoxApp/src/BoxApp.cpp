@@ -200,7 +200,7 @@ void BoxApp::BuildConstantBuffers()
 {
 	_pUploadBuffer = std::make_unique<UploadBuffer<ObjectConstants>>(_pDevice.Get(), 1, true);
 
-	UINT byteSize = MathHelper::ByteSize(sizeof(ObjectConstants));
+	UINT byteSize = DxUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 
 	D3D12_GPU_VIRTUAL_ADDRESS address = _pUploadBuffer->Resource()->GetGPUVirtualAddress();
 	int index = 0;

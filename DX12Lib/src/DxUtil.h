@@ -11,6 +11,8 @@
 
 namespace DxUtil
 {
+    UINT CalcConstantBufferByteSize(UINT byteSize);
+
     void LogAdapterOutputs(
         IDXGIAdapter* adapter
     );
