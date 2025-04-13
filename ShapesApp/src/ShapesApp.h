@@ -17,11 +17,11 @@ struct Vertex
 	DirectX::XMFLOAT4 Color;
 };
 
-class ShapesApp final : public App
+class ShapeApp final : public App
 {
 public:
-	ShapesApp(HINSTANCE hInstance);
-	~ShapesApp() noexcept;
+	ShapeApp(HINSTANCE hInstance);
+	~ShapeApp() noexcept;
 
 	virtual bool Initialize() override;
 

@@ -1,4 +1,4 @@
-#include "ShapesApp.h"
+  #include "ShapesApp.h"
 
 #include <array>
 #include <DirectXColors.h>
@@ -10,17 +10,17 @@
 using namespace DirectX;
 using namespace Microsoft::WRL;
 
-ShapesApp::ShapesApp(HINSTANCE hInstance)
+ShapeApp::ShapeApp(HINSTANCE hInstance)
 	: App(hInstance) 
 {
 	_title = L"ShapesApp";  
 }
 
-ShapesApp::~ShapesApp() {
+ShapeApp::~ShapeApp() {
 	if (_pDevice) FlushCommandQueue();
 } 
 
-bool ShapesApp::Initialize() {
+bool ShapeApp::Initialize() {
 	if (not App::Initialize()) return false;
 
 	// Reset the command list to prep for initialization commands.
@@ -47,7 +47,7 @@ bool ShapesApp::Initialize() {
 	return true;
 }
 
-void ShapesApp::OnResize() {
+void ShapeApp::OnResize() {
 	App::OnResize();
 
 	// TODO: Def somewhere else
@@ -63,7 +63,7 @@ void ShapesApp::OnResize() {
 	XMStoreFloat4x4(&_projection, projection);
 }
 
-void ShapesApp::Update(const GameTimer& gt) {
+void ShapeApp::Update(const GameTimer& gt) {
 	OnKeyboardInput(gt);
 	UpdateCamera(gt);
 
@@ -84,7 +84,7 @@ void ShapesApp::Update(const GameTimer& gt) {
 	UpdateMainPassCB(gt);
 }
 
-void ShapesApp::Draw(const GameTimer& /*timer*/) {
+void ShapeApp::Draw(const GameTimer& /*timer*/) {
 	auto pCommandListAllocator = _pCurrentFrameResource->CmdListAlloc;
 
 	// Reuse the memory associated with command recording.
@@ -155,18 +155,18 @@ void ShapesApp::Draw(const GameTimer& /*timer*/) {
 	_pCommandQueue->Signal(_pFence.Get(), _currentFence);
 }
 
-void ShapesApp::OnMouseDown(WPARAM /*btnState*/, int x, int y) {
+void ShapeApp::OnMouseDown(WPARAM /*btnState*/, int x, int y) {
 	_lastMousePosition.x = x;
 	_lastMousePosition.y = y;
 
 	SetCapture(_hWnd);
 }
 
-void ShapesApp::OnMouseUp(WPARAM /*btnState*/, int /*x*/, int /*y*/) {
+void ShapeApp::OnMouseUp(WPARAM /*btnState*/, int /*x*/, int /*y*/) {
 	ReleaseCapture();
 }
 
-void ShapesApp::OnMouseMove(WPARAM btnState, int x, int y) {
+void ShapeApp::OnMouseMove(WPARAM btnState, int x, int y) {
 	if ((btnState & MK_LBUTTON)) {
 		// Each pixel corresponds with a quarter of a degree
 		float dx = XMConvertToRadians(.25f * static_cast<float>(x - _lastMousePosition.x));
@@ -193,7 +193,7 @@ void ShapesApp::OnMouseMove(WPARAM btnState, int x, int y) {
 	_lastMousePosition.y = y;
 }
 
-void ShapesApp::OnKeyboardInput(const GameTimer& gt) {
+void ShapeApp::OnKeyboardInput(const GameTimer& gt) {
 	// Check if most significant bit is set
 	if (GetAsyncKeyState(VK_TAB) & 0x8000)
 		_isWireframe = true;
@@ -201,7 +201,7 @@ void ShapesApp::OnKeyboardInput(const GameTimer& gt) {
 		_isWireframe = false;
 }
 
-void ShapesApp::UpdateCamera(const GameTimer& gt) {
+void ShapeApp::UpdateCamera(const GameTimer& gt) {
 	// Convert Spherical to Cartesian coordinates.
 	_eyePos.x = _radius * sinf(_phi) * cosf(_theta);
 	_eyePos.z = _radius * sinf(_phi) * sinf(_theta);
@@ -216,7 +216,7 @@ void ShapesApp::UpdateCamera(const GameTimer& gt) {
 	XMStoreFloat4x4(&_view, view);
 }
 
-void ShapesApp::UpdateObjectCBs(const GameTimer& gt) {
+void ShapeApp::UpdateObjectCBs(const GameTimer& gt) {
 	auto currObjectCB = _pCurrentFrameResource->ObjectCBuffer.get();
 	for (auto& pItem : _renderItems) {
 		// Only update the cbuffer data if the constants have changed.  
@@ -234,7 +234,7 @@ void ShapesApp::UpdateObjectCBs(const GameTimer& gt) {
 	}
 }
 
-void ShapesApp::UpdateMainPassCB(const GameTimer& gt) {
+void ShapeApp::UpdateMainPassCB(const GameTimer& gt) {
 	XMMATRIX view = XMLoadFloat4x4(&_view);
 	XMMATRIX proj = XMLoadFloat4x4(&_projection);
 
@@ -265,7 +265,7 @@ void ShapesApp::UpdateMainPassCB(const GameTimer& gt) {
 	currPassCB->CopyData(0, _mainPassCB);
 }
 
-void ShapesApp::BuildDescriptorHeaps() {
+void ShapeApp::BuildDescriptorHeaps() {
 	UINT objCount = (UINT)_opaqueRenderItems.size();
 
 	// Need a CBV descriptor for each object for each frame resource,
@@ -287,7 +287,7 @@ void ShapesApp::BuildDescriptorHeaps() {
 	THROW_IF_FAILED(_pDevice->CreateDescriptorHeap(&cbvHeapDesc, IID_PPV_ARGS(&_pCbvHeap)));
 }
 
-void ShapesApp::BuildConstantBufferViews() {
+void ShapeApp::BuildConstantBufferViews() {
 	UINT ObjectConstantsByteSize = DxUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 	UINT objCount = (UINT)_opaqueRenderItems.size();
 
@@ -335,7 +335,7 @@ void ShapesApp::BuildConstantBufferViews() {
 	}
 }
 
-void ShapesApp::BuildRootSignature() {
+void ShapeApp::BuildRootSignature() {
 	CD3DX12_DESCRIPTOR_RANGE cbvTable0{};
 	cbvTable0.Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
 
@@ -369,12 +369,12 @@ void ShapesApp::BuildRootSignature() {
 		IID_PPV_ARGS(_pRootSignature.GetAddressOf())));
 }
 
-void ShapesApp::BuildShaders() {
+void ShapeApp::BuildShaders() {
 	_shaders["standardVS"] = DxUtil::LoadBinary(L"color.vs.cso");
 	_shaders["opaquePS"] = DxUtil::LoadBinary(L"color.ps.cso");
 }
 
-void ShapesApp::BuildInputLayout() {
+void ShapeApp::BuildInputLayout() {
 	D3D12_INPUT_ELEMENT_DESC positionDesc{
 		.SemanticName = "Position",
 		.SemanticIndex = 0,
@@ -398,7 +398,7 @@ void ShapesApp::BuildInputLayout() {
 	_inputLayout = { positionDesc , elementDesc };
 }
 
-void ShapesApp::BuildShapeGeometry() {
+void ShapeApp::BuildShapeGeometry() {
 
 	GeometryGenerator geometryGenerator{};
 	GeometryGenerator::MeshData box = geometryGenerator.CreateBox(1.5f, 0.5f, 1.5f, 3);
@@ -517,7 +517,7 @@ void ShapesApp::BuildShapeGeometry() {
 	_geometries[pGeometry->Name] = std::move(pGeometry);
 }
 
-void ShapesApp::BuildPSOs() {
+void ShapeApp::BuildPSOs() {
 #pragma region Opaque
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc
 	{
@@ -572,7 +572,7 @@ void ShapesApp::BuildPSOs() {
 #pragma endregion Opaque Wireframe
 }
 
-void ShapesApp::BuildFrameResources() {
+void ShapeApp::BuildFrameResources() {
 	for (int i = 0; i < RenderItem::NrFrameResources; ++i) {
 		_frameResources.push_back(std::make_unique<FrameResource>(
 			_pDevice.Get(),
@@ -581,7 +581,7 @@ void ShapesApp::BuildFrameResources() {
 	}
 }
 
-void ShapesApp::BuildRenderItems() {
+void ShapeApp::BuildRenderItems() {
 	auto boxRitem = std::make_unique<RenderItem>();
 	XMStoreFloat4x4(&boxRitem->World, XMMatrixScaling(2.0f, 2.0f, 2.0f) * XMMatrixTranslation(0.0f, 0.5f, 0.0f));
 	boxRitem->ObjectCBufferIndex = 0;
@@ -658,7 +658,7 @@ void ShapesApp::BuildRenderItems() {
 		_opaqueRenderItems.push_back(e.get());
 }
 
-void ShapesApp::DrawRenderItems(ID3D12GraphicsCommandList* pCommandList, const std::vector<RenderItem*>& items) {
+void ShapeApp::DrawRenderItems(ID3D12GraphicsCommandList* pCommandList, const std::vector<RenderItem*>& items) {
 	UINT objCBByteSize = DxUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
 
 	// For each render item...

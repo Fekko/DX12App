@@ -139,7 +139,7 @@ ComPtr<ID3D12Resource> DxUtil::CreateDefaultBuffer(
         D3D12_RESOURCE_STATE_COPY_DEST,
         D3D12_RESOURCE_STATE_GENERIC_READ);
     pCommandList->ResourceBarrier(1, &barrier2);
-#pragma endregion
+    #pragma endregion
 
     return pDefaultBuffer;
 }

@@ -13,7 +13,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*prevInstance*/, PSTR /*cmdLi
 #endif
 
 	try {
-		ShapesApp app(hInstance);
+		ShapeApp app(hInstance);
 		if (not app.Initialize()) return 0;
 		return app.Run();
 	}

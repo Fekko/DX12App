@@ -9,7 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\WavesApp.cpp" />
-    <ClCompile Include="src\RenderItem.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\FrameResource.cpp" />
     <ClCompile Include="src\Waves.cpp" />
